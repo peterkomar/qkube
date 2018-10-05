@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2018 by peter komar                                     *
+ *   Copyright (C) 2014 by Peter Komar                                     *
  *   udldevel@gmail.com                                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -17,31 +17,30 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef KUBEBROWSERMAINWINDOW_H
-#define KUBEBROWSERMAINWINDOW_H
 
-#include <QMainWindow>
+#ifndef QJSONVIEW_H
+#define QJSONVIEW_H
 
-class ApplicationView;
-class QTextEdit;
-class QJsonView;
+#include <QTreeWidget>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonValue>
 
-class KubeBrowserMainWindow : public QMainWindow
+class QJsonView : public QTreeWidget
 {
     Q_OBJECT
 public:
-    explicit KubeBrowserMainWindow(QWidget *parent = nullptr);
+    explicit QJsonView(QWidget *parent = nullptr);
 
-signals:
-
-public slots:
-    void slotAbout();
+     void setJson(const QString& text);
 
 private:
-    ApplicationView *m_viewKubeApp;
-    QJsonView *m_kubeObjectView;
+    enum{TYPE_ITEM_OBJECT = 1, TYPE_ITEM_ARRAY};
+    void buildObject(const QString& name, const QJsonObject& object, QTreeWidgetItem* parent = nullptr);
+    void buildArray(const QString& name, const QJsonArray& object, QTreeWidgetItem* parent = nullptr);
+    void addItem(const QString& name, const QJsonValue& value, QTreeWidgetItem* item);
 
-    void _gui();
+    QTreeWidgetItem* createItem(const QString& name, QTreeWidgetItem *parent, int type = 0);
 };
 
-#endif // KUBEBROWSERMAINWINDOW_H
+#endif // QJSONVIEW_H

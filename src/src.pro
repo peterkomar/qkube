@@ -14,13 +14,15 @@ RCC_DIR = build
 
 SOURCES += main.cpp \
     kubebrowsermainwindow.cpp \
-    applicationview.cpp
+    applicationview.cpp \
+    qjsonview.cpp
 
 QT += network \    
     widgets
 
 HEADERS += \ 
     kubebrowsermainwindow.h \
-    applicationview.h
+    applicationview.h \
+    qjsonview.h
 
 RESOURCES += application.qrc
